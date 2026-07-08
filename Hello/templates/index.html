@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}
+  Home
+{% endblock %}
+{% block body %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Modern Digital Agency Homepage</title>
+    </head>
+    <body>
+      <!-- Main Hero Component -->
+      <main class="hero" id="home">
+        <div class="hero-content">
+          <span class="hero-tag">Next-Gen Creative Agency</span>
+          <h1>We design digital products that scale.</h1>
+          <p>We blend strategy, modern UI/UX design, and clean execution to help startups build memorable digital brand presence.</p>
+          <button class="cta-btn" onclick="alert('Welcome! Let\'s build something great.')">Get Started</button>
+        </div>
+
+        <div class="hero-image-pane">
+          <div class="counter-box">
+            <span class="counter-number" id="projectCounter">0</span>
+            <span class="counter-label">Global Projects Completed</span>
+          </div>
+          <p style="font-size: 0.9rem; max-width: 280px;">Interactive dynamic stats updated in real-time by vanilla JavaScript logic.</p>
+        </div>
+      </main>
+
+      
+    </body>
+  </html>
+{% endblock %}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+
+      {% endblock %}Responsive Navbar
+    </title>
+    <style>
+      /* CSS Variables & Design Tokens */
+      :root {
+        --primary: #6366f1;
+        --primary-hover: #4f46e5;
+        --bg-main: #ffffff;
+        --bg-surface: #f8fafc;
+        --text-main: #0f172a;
+        --text-muted: #475569;
+        --border: #e2e8f0;
+        --transition: all 0.3s ease;
+      }
+      
+      [data-theme='dark'] {
+        --bg-main: #0f172a;
+        --bg-surface: #1e293b;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --border: #334155;
+      }
+      
+      /* Reset & Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      }
+      
+      body {
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        transition: var(--transition);
+        line-height: 1.6;
+      }
+      
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      
+      /* Navbar Layout */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 10%;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: var(--bg-main);
+        z-index: 100;
+      }
+      
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+      
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
+      }
+      
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+      
+      /* Theme Toggle Switch */
+      .theme-toggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        border-radius: 50%;
+        background-color: var(--bg-surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      /* Hero Section */
+      .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5rem 10%;
+        min-height: calc(100vh - 80px);
+        gap: 4rem;
+      }
+      
+      .hero-content {
+        flex: 1;
+      }
+      
+      .hero-tag {
+        background: rgba(99, 102, 241, 0.1);
+        color: var(--primary);
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+      
+      .hero h1 {
+        font-size: 3.5rem;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+      }
+      
+      .hero p {
+        color: var(--text-muted);
+        font-size: 1.125rem;
+        margin-bottom: 2rem;
+        max-width: 500px;
+      }
+      
+      .cta-btn {
+        background-color: var(--primary);
+        color: white;
+        padding: 0.75rem 1.75rem;
+        border-radius: 8px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      
+      .cta-btn:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-2px);
+      }
+      
+      /* Dynamic Counter Widget */
+      .hero-image-pane {
+        flex: 1;
+        background: var(--bg-surface);
+        border-radius: 20px;
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid var(--border);
+        text-align: center;
+        position: relative;
+      }
+      
+      .counter-box {
+        margin: 1.5rem 0;
+      }
+      
+      .counter-number {
+        font-size: 4rem;
+        font-weight: 800;
+        color: var(--primary);
+        display: block;
+      }
+      
+      .counter-label {
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+      
+      /* Responsive Breakpoints */
+      @media (max-width: 968px) {
+        .hero {
+          flex-direction: column;
+          text-align: center;
+          padding: 3rem 5%;
+        }
+        .hero p {
+          margin: 0 auto 2rem auto;
+        }
+        .nav-links {
+          display: none; /* Simplification for small screen layouts */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Navigation -->
+    <header class="navbar">
+      <div class="logo">ApexMedia</div>
+      <nav>
+        <ul class="nav-links">
+          <li>
+            <a href="{% url 'home' %}">Home</a>
+          </li>
+          <li>
+            <a href="{% url 'services' %}">Services</a>
+          </li>
+          <li>
+            <a href="{% url 'about' %}">About</a>
+          </li>
+          <li>
+            <a href="{% url 'contact' %}">contact</a>
+          </li>
+          <li>
+            <button class="theme-toggle" id="themeBtn" aria-label="Toggle dark mode">🌙</button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    {% block body %}
+
+    {% endblock %} <!-- UI Interaction Script -->
+    <script>
+      // Light/Dark Theme Switching Logic
+      const themeBtn = document.getElementById('themeBtn')
+      
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme')
+        if (currentTheme === 'dark') {
+          document.documentElement.removeAttribute('data-theme')
+          themeBtn.textContent = '🌙'
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark')
+          themeBtn.textContent = '☀️'
+        }
+      })
+      
+      // Simple Dynamic Count-up Animation
+      function animateCounter(id, start, end, duration) {
+        const obj = document.getElementById(id)
+        let startTimestamp = null
+        const step = (timestamp) => {
+          if (!startTimestamp) startTimestamp = timestamp
+          const progress = Math.min((timestamp - startTimestamp) / duration, 1)
+          obj.innerHTML = Math.floor(progress * (end - start) + start) + '+'
+          if (progress < 1) {
+            window.requestAnimationFrame(step)
+          }
+        }
+        window.requestAnimationFrame(step)
+      }
+      
+      // Trigger animation when DOM completely loads
+      document.addEventListener('DOMContentLoaded', () => {
+        animateCounter('projectCounter', 0, 142, 2000)
+      })
+    </script>
+  </body>
+</html>
